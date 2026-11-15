@@ -1,0 +1,38 @@
+{
+  "farm_id": "demo-peshawar-001",
+  "name": "[DEMO] Peshawar Valley Demo Farm",
+  "latitude": 34.0151,
+  "longitude": 71.5249,
+  "area_value": 5.0,
+  "area_unit": "acres",
+  "soil_type": "loamy",
+  "irrigation_type": "tube_well",
+  "water_availability": "medium",
+  "is_demo_data": true,
+  "created_at": "2026-10-01T08:00:00Z",
+  "updated_at": "2026-10-01T08:00:00Z",
+  "crop_history": [
+    {
+      "entry_id": "hist-demo-001",
+      "farm_id": "demo-peshawar-001",
+      "crop_name": "Wheat (Gandum)",
+      "season": "rabi",
+      "start_date": "2025-11-15",
+      "end_date": "2026-04-20",
+      "notes": "Standard sowing post-kharif maize. Conventional flood irrigation via tube-well.",
+      "is_demo_data": true,
+      "created_at": "2026-10-01T08:00:00Z"
+    },
+    {
+      "entry_id": "hist-demo-002",
+      "farm_id": "demo-peshawar-001",
+      "crop_name": "Maize (Makai)",
+      "season": "kharif",
+      "start_date": "2026-06-01",
+      "end_date": "2026-09-25",
+      "notes": "Grain maize hybrid. Encountered moderate irrigation power supply gaps in July.",
+      "is_demo_data": true,
+      "created_at": "2026-10-01T08:00:00Z"
+    }
+  ]
+}

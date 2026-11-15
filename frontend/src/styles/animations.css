@@ -1,0 +1,169 @@
+/* AgroShift Motion & Animation System */
+
+:root {
+  --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Reduced Motion for Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* GPU Accelerated Animation Utility Classes */
+.animate-fade-in {
+  animation: fadeIn 250ms var(--ease-smooth) forwards;
+}
+
+.animate-fade-up {
+  animation: fadeUp 300ms var(--ease-smooth) forwards;
+}
+
+.animate-fade-down {
+  animation: fadeDown 300ms var(--ease-smooth) forwards;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 300ms var(--ease-smooth) forwards;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 300ms var(--ease-smooth) forwards;
+}
+
+.animate-scale-in {
+  animation: scaleIn 250ms var(--ease-smooth) forwards;
+}
+
+.animate-pulse-soft {
+  animation: pulseSoft 2.5s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    #e2e8f0 25%,
+    #f1f5f9 50%,
+    #e2e8f0 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
+}
+
+/* Interactive Component Motion */
+.btn-motion {
+  transition:
+    transform 150ms var(--ease-smooth),
+    box-shadow 150ms var(--ease-smooth),
+    background-color 150ms var(--ease-smooth),
+    border-color 150ms var(--ease-smooth);
+}
+
+.btn-motion:hover {
+  transform: translateY(-2px);
+}
+
+.btn-motion:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.card-interactive {
+  transition:
+    transform 250ms var(--ease-smooth),
+    box-shadow 250ms var(--ease-smooth),
+    border-color 250ms var(--ease-smooth);
+}
+
+.card-interactive:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.1);
+}
+
+/* Map Pin Bounce In */
+.map-pin,
+.map-pin-animated {
+  animation: map-pin-in 300ms var(--ease-smooth) forwards;
+}
+
+@keyframes map-pin-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.6) translateY(-8px);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.08) translateY(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.area-value {
+  transition:
+    opacity 200ms var(--ease-smooth),
+    transform 200ms var(--ease-smooth);
+}
+
+.area-value-updated {
+  animation: area-pop 300ms var(--ease-smooth);
+}
+
+@keyframes area-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-16px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(16px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Soft Orbit Rotation */
+@keyframes orbit {
+  from {
+    transform: rotate(0deg) translateX(45px) rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg) translateX(45px) rotate(-360deg);
+  }
+}
+
+.animate-orbit {
+  animation: orbit 14s linear infinite;
+}

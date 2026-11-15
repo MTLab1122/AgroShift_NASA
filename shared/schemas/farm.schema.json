@@ -1,0 +1,101 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "FarmManagementSchema",
+  "definitions": {
+    "CropHistoryEntry": {
+      "type": "object",
+      "required": ["entry_id", "farm_id", "crop_name", "season"],
+      "properties": {
+        "entry_id": { "type": "string" },
+        "farm_id": { "type": "string" },
+        "crop_name": { "type": "string" },
+        "season": {
+          "type": "string",
+          "enum": ["rabi", "kharif", "zaid", "annual", "unknown"]
+        },
+        "start_date": {
+          "type": ["string", "null"],
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        },
+        "end_date": {
+          "type": ["string", "null"],
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        },
+        "notes": { "type": ["string", "null"] },
+        "is_demo_data": { "type": "boolean", "default": false },
+        "created_at": { "type": "string", "format": "date-time" }
+      },
+      "additionalProperties": false
+    },
+    "FarmProfile": {
+      "type": "object",
+      "required": [
+        "farm_id",
+        "name",
+        "latitude",
+        "longitude",
+        "area_value",
+        "area_unit",
+        "soil_type",
+        "irrigation_type",
+        "water_availability"
+      ],
+      "properties": {
+        "farm_id": { "type": "string" },
+        "name": { "type": "string" },
+        "latitude": {
+          "type": "number",
+          "minimum": -90.0,
+          "maximum": 90.0
+        },
+        "longitude": {
+          "type": "number",
+          "minimum": -180.0,
+          "maximum": 180.0
+        },
+        "area_value": {
+          "type": "number",
+          "exclusiveMinimum": 0.0
+        },
+        "area_unit": {
+          "type": "string",
+          "enum": ["acres", "hectares"]
+        },
+        "soil_type": {
+          "type": "string",
+          "enum": ["clay", "sandy", "loamy", "other", "unknown"]
+        },
+        "irrigation_type": {
+          "type": "string",
+          "enum": ["canal", "tube_well", "rain_fed", "other", "unknown"]
+        },
+        "water_availability": {
+          "type": "string",
+          "enum": ["low", "medium", "high", "unknown"]
+        },
+        "is_demo_data": { "type": "boolean", "default": false },
+        "crop_history": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/CropHistoryEntry" }
+        },
+        "field_boundary": {
+          "type": ["object", "null"],
+          "description": "GeoJSON Polygon representing the approximate farm field boundary."
+        },
+        "field_boundary_source": {
+          "type": ["string", "null"],
+          "enum": ["map_drawn", "manual_entry", "unknown"],
+          "description": "Indicates whether the boundary was drawn on the map, manually entered, or unknown."
+        },
+        "area_source": {
+          "type": ["string", "null"],
+          "enum": ["map_calculated", "manual_entry", "unknown"],
+          "description": "Indicates whether the area was calculated from the map boundary or manually entered."
+        },
+        "created_at": { "type": "string", "format": "date-time" },
+        "updated_at": { "type": "string", "format": "date-time" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

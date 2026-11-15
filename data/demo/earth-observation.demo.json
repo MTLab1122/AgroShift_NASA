@@ -1,0 +1,135 @@
+{
+  "farm_id": "00000000-0000-0000-0000-000000000001",
+  "latitude": 34.0151,
+  "longitude": 71.5249,
+  "analysis_period": {
+    "recent_start_date": "2024-05-01",
+    "recent_end_date": "2024-07-31",
+    "historical_start_date": "2014-01-01",
+    "historical_end_date": "2024-12-31"
+  },
+  "soil_moisture": {
+    "source": "NASA SMAP L4 / Crop-CASMA",
+    "spatial_resolution": "9 km (0.09° grid)",
+    "grid_centroid": {
+      "latitude": 34.02,
+      "longitude": 71.55
+    },
+    "recent_root_zone_moisture": 19.8,
+    "historical_mean": 27.4,
+    "moisture_anomaly": -7.6,
+    "unit": "mm/m",
+    "dry_root_zone_flag": true,
+    "interpretation": "Root-zone soil moisture (19.8 mm/m) is below the configured dry threshold (25 mm/m). Water-demanding crops face elevated moisture deficits without canal/well irrigation.",
+    "data_coverage_percentage": 94.5
+  },
+  "climate": {
+    "source": "NASA POWER Daily Point API",
+    "heat_stress_days": 38,
+    "frost_risk_days": 0
+  },
+  "precipitation": {
+    "source": "NASA GPM IMERG",
+    "product_run": "Final Run (Gauge-Calibrated)",
+    "spatial_resolution": "0.1° × 0.1° (~10 km grid)",
+    "seasonal_rainfall_total_mm": 42.5,
+    "daily_mean_mm": 0.47,
+    "rainfall_deficit_mm": -22.5,
+    "consecutive_dry_days": 16,
+    "heavy_rain_days": 2,
+    "dry_spell_risk": true,
+    "interpretation": "Elevated dry-spell risk detected with 16 consecutive dry days and a 22.5 mm seasonal rainfall deficit. Crops without supplemental irrigation face moisture stress."
+  },
+  "vegetation": {
+    "source": "NASA MODIS / VIIRS NDVI (MOD13Q1 / VNP13A1)",
+    "spatial_resolution": "250 m to 500 m pixel",
+    "recent_mean_ndvi": 0.21,
+    "historical_mean_ndvi": 0.38,
+    "ndvi_anomaly": -0.17,
+    "low_greenness_flag": true,
+    "bare_field_likelihood": "high",
+    "interpretation": "Satellite vegetation greenness is low (NDVI 0.21 < 0.25). This reflects post-harvest fallow exposed soil or sparse vegetation. Local confirmation is required."
+  },
+  "bare_field_windows": [
+    {
+      "start_date": "2024-05-01",
+      "end_date": "2024-07-31",
+      "duration_days": 60,
+      "evidence": {
+        "ndvi_mean": 0.21,
+        "root_zone_soil_moisture": 19.8,
+        "recent_precipitation_mm": 42.5,
+        "mean_temperature_c": 31.5
+      },
+      "risk": "high",
+      "interpretation": "Bare-field window confirmed by 4 independent satellite signals: low canopy greenness (NDVI 0.21), depleted root-zone moisture (19.8 mm/m), and precipitation deficits. Topsoil is exposed to solar desiccation and erosion. A short-cycle cover or forage pulse crop is strongly recommended.",
+      "confidence": "high"
+    }
+  ],
+  "heat_stress": {
+    "source": "NASA POWER (T2M_MAX, T2M_MIN, RH2M)",
+    "heat_stress_days": 38,
+    "frost_risk_days": 0,
+    "consecutive_hot_days": 7,
+    "interpretation": "Observed 38 heat-stress days (Tmax >= 35°C) and 0 frost-risk days (Tmin <= 2°C) during the summer transition. Sensitive flowering stages require thermal protection."
+  },
+  "data_quality": {
+    "available_sources": [
+      "NASA SMAP L4 / Crop-CASMA",
+      "NASA GPM IMERG",
+      "NASA MODIS / VIIRS NDVI",
+      "NASA POWER Daily Point API"
+    ],
+    "unavailable_sources": [],
+    "missing_percentage_by_source": {
+      "NASA SMAP L4": 5.5,
+      "NASA GPM IMERG": 0.0,
+      "NASA MODIS / VIIRS": 0.0,
+      "NASA POWER": 0.0
+    },
+    "overall_confidence": "high",
+    "earliest_observation_date": "2024-05-01",
+    "latest_observation_date": "2024-07-31"
+  },
+  "provenance": [
+    {
+      "source_name": "NASA SMAP L4 / Crop-CASMA",
+      "product_id": "SPL4SMGP.007",
+      "spatial_resolution": "9 km (0.09° grid centroid)",
+      "temporal_resolution": "Daily Assimilated (3-hour GMAO Land Surface Model)",
+      "measurement": "Root-Zone Soil Moisture (0-100 cm depth)",
+      "retrieval_method": "L-Band Radiometer assimilation into Catchment Land Surface Model"
+    },
+    {
+      "source_name": "NASA GPM IMERG",
+      "product_id": "GPM_3IMERGDF.07",
+      "spatial_resolution": "0.1° × 0.1° (~10 km grid)",
+      "temporal_resolution": "Daily Final Run (Gauge-Calibrated)",
+      "measurement": "Precipitation rate and accumulated rainfall (mm)",
+      "retrieval_method": "Multi-satellite passive microwave, IR sensor constellation, and GPCC ground gauges"
+    },
+    {
+      "source_name": "NASA MODIS / VIIRS",
+      "product_id": "MOD13Q1 / VNP13A1",
+      "spatial_resolution": "250 m to 500 m pixel",
+      "temporal_resolution": "16-day Composite",
+      "measurement": "Normalized Difference Vegetation Index (NDVI)",
+      "retrieval_method": "Optical Red & Near-Infrared surface reflectance ratio"
+    },
+    {
+      "source_name": "NASA POWER",
+      "product_id": "POWER Daily Point API",
+      "spatial_resolution": "0.5° × 0.625°",
+      "temporal_resolution": "Daily",
+      "measurement": "T2M, T2M_MAX, T2M_MIN, PRECTOTCORR, RH2M, ALLSKY_SFC_SW_DWN",
+      "retrieval_method": "GMAO MERRA-2 assimilation and GEOS FP-IT operational satellite analysis"
+    }
+  ],
+  "limitations": [
+    "Gridded satellite and reanalysis observations (9 km to 50 km) represent regional spatial averages rather than field-level sensor measurements.",
+    "Optical NDVI observations are subject to cloud obscuration, atmospheric aerosol interference, and 16-day compositing intervals.",
+    "Soil moisture assimilation models rely on surface radiometry and land-surface modeling; actual root-zone moisture varies by local soil compaction and texture.",
+    "Ground verification of canal water rotation ('warabandi'), tube-well electric reliability, soil salinity, and pest outbreaks is mandatory before planting."
+  ],
+  "is_demo_data": true
+}

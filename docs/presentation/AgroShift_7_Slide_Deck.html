@@ -1,0 +1,1148 @@
+<!-- COPY OF INTERACTIVE SLIDE DECK FOR TEAM INCIR -->
+<!-- Source: AgroShift_Presentation_Deck.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgroShift — NASA Space Apps Challenge 2026 Presentation Deck</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-green: #166534;
+      --fresh-green: #22C55E;
+      --nasa-blue: #0B3D91;
+      --sky-blue: #38BDF8;
+      --soil-brown: #92400E;
+      --warning-amber: #F59E0B;
+      --clean-white: #FFFFFF;
+      --dark-bg: #0F172A;
+      --muted-text: #94A3B8;
+      --card-bg: rgba(30, 41, 59, 0.7);
+      --card-border: rgba(148, 163, 184, 0.15);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--dark-bg);
+      color: #F8FAFC;
+      font-family: 'Inter', sans-serif;
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      flex-direction: column;
+      user-select: none;
+    }
+
+    h1, h2, h3, h4, .font-heading {
+      font-family: 'Space Grotesk', 'Inter', sans-serif;
+      letter-spacing: -0.02em;
+    }
+
+    .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Presentation Canvas 16:9 Aspect Ratio */
+    #deck-container {
+      position: relative;
+      flex: 1;
+      width: 100%;
+      height: calc(100vh - 64px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at 50% 20%, #1e293b 0%, #0f172a 70%);
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute;
+      width: 94%;
+      max-width: 1280px;
+      height: 88%;
+      max-height: 720px;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(11, 61, 145, 0.25));
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+      padding: 44px 56px;
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(0.96) translateY(20px);
+      transition: all 400ms cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      backdrop-filter: blur(16px);
+    }
+
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: scale(1) translateY(0);
+      z-index: 10;
+    }
+
+    /* Subtle background grid pattern */
+    .bg-grid {
+      background-image: radial-gradient(rgba(56, 189, 248, 0.08) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+
+    /* Orbit Animation */
+    @keyframes orbit-cw {
+      from { transform: rotate(0deg) translateX(110px) rotate(0deg); }
+      to { transform: rotate(360deg) translateX(110px) rotate(-360deg); }
+    }
+
+    .satellite-orbit {
+      animation: orbit-cw 12s linear infinite;
+    }
+
+    /* Pulse Glow */
+    @keyframes pulse-pin {
+      0% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+      70% { transform: scale(1.1); opacity: 0.8; box-shadow: 0 0 0 16px rgba(34, 197, 94, 0); }
+      100% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+    }
+
+    .pin-pulse {
+      animation: pulse-pin 2.5s infinite;
+    }
+
+    /* UI Badges */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .badge-nasa {
+      background: rgba(11, 61, 145, 0.3);
+      color: #38BDF8;
+      border: 1px solid rgba(56, 189, 248, 0.4);
+    }
+
+    .badge-green {
+      background: rgba(34, 197, 94, 0.15);
+      color: #4ADE80;
+      border: 1px solid rgba(34, 197, 94, 0.35);
+    }
+
+    .badge-amber {
+      background: rgba(245, 158, 11, 0.15);
+      color: #FBBF24;
+      border: 1px solid rgba(245, 158, 11, 0.35);
+    }
+
+    /* Data Cards */
+    .glass-card {
+      background: rgba(30, 41, 59, 0.6);
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      border-radius: 16px;
+      padding: 18px 22px;
+      transition: all 250ms ease;
+    }
+
+    .glass-card:hover {
+      background: rgba(30, 41, 59, 0.85);
+      border-color: rgba(56, 189, 248, 0.4);
+      transform: translateY(-2px);
+    }
+
+    /* Bottom Control Bar */
+    #deck-controls {
+      height: 64px;
+      background: #0B1120;
+      border-top: 1px solid rgba(148, 163, 184, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      z-index: 50;
+    }
+
+    .control-btn {
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      color: #E2E8F0;
+      padding: 8px 16px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 180ms ease;
+    }
+
+    .control-btn:hover {
+      background: #1E293B;
+      color: #FFFFFF;
+      border-color: #38BDF8;
+    }
+
+    .control-btn.active {
+      background: #166534;
+      border-color: #22C55E;
+      color: #FFFFFF;
+    }
+
+    /* Speaker Notes Drawer */
+    #speaker-notes-drawer {
+      position: absolute;
+      bottom: 64px;
+      left: 0;
+      right: 0;
+      background: rgba(15, 23, 42, 0.98);
+      border-top: 2px solid #22C55E;
+      padding: 20px 36px;
+      box-shadow: 0 -10px 25px rgba(0, 0, 0, 0.5);
+      z-index: 40;
+      transform: translateY(100%);
+      transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
+      backdrop-filter: blur(12px);
+    }
+
+    #speaker-notes-drawer.open {
+      transform: translateY(0);
+    }
+
+    /* Custom Tables */
+    table.slide-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      font-size: 13px;
+    }
+
+    table.slide-table th {
+      background: rgba(11, 61, 145, 0.3);
+      color: #38BDF8;
+      text-align: left;
+      padding: 10px 16px;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+    }
+
+    table.slide-table td {
+      padding: 11px 16px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+      background: rgba(15, 23, 42, 0.4);
+      color: #E2E8F0;
+    }
+
+    table.slide-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* Progress Pills */
+    .progress-pill {
+      width: 28px;
+      height: 6px;
+      border-radius: 9999px;
+      background: rgba(148, 163, 184, 0.25);
+      cursor: pointer;
+      transition: all 250ms ease;
+    }
+
+    .progress-pill.active {
+      width: 48px;
+      background: #22C55E;
+      box-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
+    }
+  </style>
+</head>
+<body class="bg-grid">
+
+  <!-- Main Slide Deck Container -->
+  <main id="deck-container">
+
+    <!-- ========================================== -->
+    <!-- SLIDE 1 — TITLE                            -->
+    <!-- ========================================== -->
+    <section class="slide active" id="slide-1" data-duration="15">
+      <div class="flex items-center justify-between border-b border-slate-700/60 pb-3">
+        <div class="flex items-center gap-3">
+          <span class="badge badge-nasa">NASA Space Apps Challenge 2026</span>
+          <span class="badge badge-green">Team InCir</span>
+        </div>
+        <div class="text-xs text-slate-400 font-mono">Peshawar Valley, Pakistan (34.0151° N, 71.5249° E)</div>
+      </div>
+
+      <div class="grid grid-cols-12 gap-8 items-center my-auto">
+        <div class="col-span-7 space-y-5">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-950/80 border border-emerald-500/40 text-emerald-400 text-xs font-semibold">
+            <svg class="w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation-duration: 8s;"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 10 10"/></svg>
+            Field Shift: Adapting Farms with NASA Data
+          </div>
+
+          <h1 class="text-6xl font-extrabold tracking-tight text-white leading-none">
+            Agro<span class="text-emerald-400">Shift</span>
+          </h1>
+
+          <p class="text-2xl font-semibold text-sky-300">
+            Turning NASA Satellite Insights Into Smarter Farm Decisions
+          </p>
+
+          <p class="text-base text-slate-300 leading-relaxed max-w-xl">
+            A judge-ready decision-support platform delivering climate-aware crop-rotation planning, root-zone moisture tracking, and transparent risk scoring for smallholder farmers in Pakistan's Peshawar Valley.
+          </p>
+
+          <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-700 flex items-center justify-between">
+            <div>
+              <div class="text-xs text-slate-400 uppercase tracking-wider font-semibold">Institution & Leadership</div>
+              <div class="text-sm font-bold text-white mt-0.5">Abasyn University Peshawar</div>
+              <div class="text-xs text-emerald-400 font-mono mt-0.5">Team Lead: Muhammad Talha (5 Members)</div>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="px-2.5 py-1 rounded bg-blue-950 border border-blue-600/50 text-[11px] font-mono text-blue-300">NASA POWER</span>
+              <span class="px-2.5 py-1 rounded bg-emerald-950 border border-emerald-600/50 text-[11px] font-mono text-emerald-300">SMAP L4</span>
+              <span class="px-2.5 py-1 rounded bg-sky-950 border border-sky-600/50 text-[11px] font-mono text-sky-300">GPM IMERG</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-span-5 flex items-center justify-center relative">
+          <!-- Stylized Globe / Satellite Orbit Visual -->
+          <div class="w-72 h-72 rounded-full border border-sky-500/20 relative flex items-center justify-center">
+            <div class="w-56 h-56 rounded-full border border-emerald-500/30 flex items-center justify-center bg-gradient-to-br from-emerald-950/40 to-blue-950/60 backdrop-blur-sm relative overflow-hidden">
+              <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(56,189,248,0.2),transparent_70%)]"></div>
+              <!-- Glowing Map Pin over Peshawar -->
+              <div class="flex flex-col items-center z-10">
+                <div class="w-8 h-8 rounded-full bg-emerald-500 flex items-center justify-center text-slate-950 font-bold pin-pulse shadow-lg shadow-emerald-500/50">
+                  <svg class="w-4 h-4 text-slate-950" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>
+                </div>
+                <span class="text-[11px] font-bold text-white bg-slate-900/90 px-2 py-0.5 rounded border border-slate-700 mt-1">Peshawar Valley</span>
+              </div>
+            </div>
+
+            <!-- Orbiting Satellite Indicator -->
+            <div class="absolute w-6 h-6 rounded-full bg-sky-400 shadow-lg shadow-sky-400/80 flex items-center justify-center satellite-orbit">
+              <svg class="w-3 h-3 text-slate-950" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between text-xs text-slate-400 border-t border-slate-700/60 pt-3">
+        <span>Target: Peshawar Valley, Charsadda, Mardan, Swabi, Nowshera</span>
+        <span class="font-mono text-emerald-400 font-medium">Slide 1 of 7</span>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 2 — THE PROBLEM                      -->
+    <!-- ========================================== -->
+    <section class="slide" id="slide-2" data-duration="25">
+      <div class="flex items-center justify-between border-b border-slate-700/60 pb-3">
+        <span class="badge badge-amber">The Local Challenge</span>
+        <span class="text-xs text-slate-400 font-mono">Peshawar Valley Agronomic Realities</span>
+      </div>
+
+      <div class="my-auto space-y-6">
+        <div>
+          <h2 class="text-4xl font-extrabold text-white tracking-tight">
+            Farmers need clear answers, not complicated satellite data.
+          </h2>
+          <p class="text-lg font-medium text-amber-400 mt-1">
+            Changing weather makes crop planning harder every season.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-12 gap-6 items-stretch">
+          <!-- Left: Farmer Pain Points Card -->
+          <div class="col-span-6 glass-card space-y-4 border-amber-500/20 bg-amber-950/10">
+            <h3 class="text-base font-bold text-slate-100 flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+              Peshawar Valley Farmers Face:
+            </h3>
+            <ul class="space-y-2.5 text-sm text-slate-300">
+              <li class="flex items-start gap-2.5">
+                <span class="text-amber-400 mt-0.5">•</span>
+                <span><strong>Rising Heat Extremes:</strong> May–June heat waves scorch early summer seedlings.</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-amber-400 mt-0.5">•</span>
+                <span><strong>Monsoon Variability:</strong> Irregular precipitation patterns disrupt sowing calendars.</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-amber-400 mt-0.5">•</span>
+                <span><strong>Canal & Tube Well Deficits:</strong> Unpredictable rotation turns and power outages.</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-amber-400 mt-0.5">•</span>
+                <span><strong>Post-Harvest Bare Soil:</strong> Prolonged fallow periods desiccate fertile topsoil.</span>
+              </li>
+            </ul>
+
+            <div class="pt-3 border-t border-slate-700/60">
+              <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Critical Farmer Questions</div>
+              <div class="grid grid-cols-3 gap-2 text-center text-xs">
+                <div class="p-2 rounded-lg bg-slate-800/80 border border-slate-700 text-sky-300 font-medium">"What should I grow next?"</div>
+                <div class="p-2 rounded-lg bg-slate-800/80 border border-slate-700 text-amber-300 font-medium">"Will my field have enough water?"</div>
+                <div class="p-2 rounded-lg bg-slate-800/80 border border-slate-700 text-emerald-300 font-medium">"How can I protect my soil?"</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Three Core Physical Stressors -->
+          <div class="col-span-6 flex flex-col justify-between gap-3">
+            <div class="glass-card flex items-center gap-4 border-red-500/30 bg-red-950/15">
+              <div class="w-12 h-12 rounded-xl bg-red-500/20 border border-red-500/40 flex items-center justify-center flex-shrink-0 text-red-400">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+              </div>
+              <div>
+                <div class="text-sm font-bold text-white">Rising Heat Stress</div>
+                <div class="text-xs text-slate-300 mt-0.5">NASA POWER shows T2M air temperatures consistently exceeding 40°C thresholds during critical grain fill.</div>
+              </div>
+            </div>
+
+            <div class="glass-card flex items-center gap-4 border-sky-500/30 bg-sky-950/15">
+              <div class="w-12 h-12 rounded-xl bg-sky-500/20 border border-sky-500/40 flex items-center justify-center flex-shrink-0 text-sky-400">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 16.2A4.5 4.5 0 0 0 17.5 8h-1.8A7 7 0 1 0 4 14.9"/><path d="M16 14v6m-4-6v6m-4-6v6"/></svg>
+              </div>
+              <div>
+                <div class="text-sm font-bold text-white">Uncertain Rainfall Patterns</div>
+                <div class="text-xs text-slate-300 mt-0.5">GPM IMERG multi-year analysis reveals intensifying dry spells and erratic monsoon arrival timing.</div>
+              </div>
+            </div>
+
+            <div class="glass-card flex items-center gap-4 border-amber-500/30 bg-amber-950/15">
+              <div class="w-12 h-12 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center flex-shrink-0 text-amber-400">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+              </div>
+              <div>
+                <div class="text-sm font-bold text-white">Root-Zone Moisture Depletion</div>
+                <div class="text-xs text-slate-300 mt-0.5">SMAP Level 4 signals sub-surface moisture dropping below 30% saturation before sowing windows close.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-3 rounded-xl bg-slate-900 border border-slate-700/80 text-center text-xs font-semibold text-slate-300">
+          ⚠️ <span class="text-amber-400">The Problem:</span> Satellite data is extraordinarily powerful — but raw NetCDF files and complex APIs are completely inaccessible to practicing farmers.
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between text-xs text-slate-400 border-t border-slate-700/60 pt-3">
+        <span>The Problem Definition</span>
+        <span class="font-mono text-emerald-400 font-medium">Slide 2 of 7</span>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 3 — OUR SOLUTION                     -->
+    <!-- ========================================== -->
+    <section class="slide" id="slide-3" data-duration="30">
+      <div class="flex items-center justify-between border-b border-slate-700/60 pb-3">
+        <span class="badge badge-green">AgroShift Platform</span>
+        <span class="text-xs text-slate-400 font-mono">End-to-End Decision Journey</span>
+      </div>
+
+      <div class="my-auto space-y-6">
+        <div>
+          <h2 class="text-4xl font-extrabold text-white tracking-tight">
+            Pin your farm. Choose your goal. See three clear plans.
+          </h2>
+          <p class="text-lg font-medium text-emerald-400 mt-1">
+            AgroShift makes NASA Earth observation simple, useful, and farmer-friendly.
+          </p>
+        </div>
+
+        <!-- 4-Step Horizontal Journey -->
+        <div class="grid grid-cols-4 gap-4">
+          <div class="glass-card text-center space-y-3 border-emerald-500/40 relative">
+            <div class="w-10 h-10 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 flex items-center justify-center mx-auto text-sm font-bold font-mono">1</div>
+            <div class="text-sm font-bold text-white">Pin Your Farm</div>
+            <p class="text-xs text-slate-300">Locate parcel on interactive map. Draw exact field polygon boundary to auto-calculate area in acres/hectares.</p>
+            <div class="text-[10px] text-emerald-400 font-mono font-semibold uppercase">Map-Based GeoJSON</div>
+          </div>
+
+          <div class="glass-card text-center space-y-3 border-blue-500/40 relative">
+            <div class="w-10 h-10 rounded-full bg-blue-500/20 text-blue-400 border border-blue-500/40 flex items-center justify-center mx-auto text-sm font-bold font-mono">2</div>
+            <div class="text-sm font-bold text-white">Choose Crop & Goal</div>
+            <p class="text-xs text-slate-300">Select current/previous crop (Wheat, Maize, Sugarcane) and goal: Save Water, Rebuild Soil, or Improve Cash Yield.</p>
+            <div class="text-[10px] text-blue-400 font-mono font-semibold uppercase">Voice & Bilingual UI</div>
+          </div>
+
+          <div class="glass-card text-center space-y-3 border-sky-500/40 relative">
+            <div class="w-10 h-10 rounded-full bg-sky-500/20 text-sky-400 border border-sky-500/40 flex items-center justify-center mx-auto text-sm font-bold font-mono">3</div>
+            <div class="text-sm font-bold text-white">NASA Checkup</div>
+            <p class="text-xs text-slate-300">Instant multi-sensor satellite health inspection across soil moisture, heat stress, rainfall deficit, and NDVI vigor.</p>
+            <div class="text-[10px] text-sky-400 font-mono font-semibold uppercase">Traffic-Light Signals</div>
+          </div>
+
+          <div class="glass-card text-center space-y-3 border-purple-500/40 relative">
+            <div class="w-10 h-10 rounded-full bg-purple-500/20 text-purple-400 border border-purple-500/40 flex items-center justify-center mx-auto text-sm font-bold font-mono">4</div>
+            <div class="text-sm font-bold text-white">Compare 3 Plans</div>
+            <p class="text-xs text-slate-300">Side-by-side comparison of 3 seasonal rotations with water demands, soil impacts, risks, and PDF/CSV export.</p>
+            <div class="text-[10px] text-purple-400 font-mono font-semibold uppercase">Deterministic Scoring</div>
+          </div>
+        </div>
+
+        <!-- Inclusive Feature Highlights -->
+        <div class="grid grid-cols-3 gap-4 text-xs">
+          <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-700/80 flex items-center gap-3">
+            <span class="text-2xl">🎙️</span>
+            <div>
+              <div class="font-bold text-white">Voice-Assisted Onboarding</div>
+              <div class="text-slate-400">Urdu (اردو) and English speech recognition for low-literacy farmers.</div>
+            </div>
+          </div>
+
+          <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-700/80 flex items-center gap-3">
+            <span class="text-2xl">🗺️</span>
+            <div>
+              <div class="font-bold text-white">Field Boundary Polygon Mapper</div>
+              <div class="text-slate-400">Leaflet polygon drawing with instant Turf.js geodesic area calculation.</div>
+            </div>
+          </div>
+
+          <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-700/80 flex items-center gap-3">
+            <span class="text-2xl">📄</span>
+            <div>
+              <div class="font-bold text-white">One-Click PDF/CSV Plans</div>
+              <div class="text-slate-400">Downloadable agronomic field reports ready for extension advisory review.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-2.5 rounded-lg bg-emerald-950/40 border border-emerald-500/30 text-center text-xs font-semibold text-emerald-300">
+          ✓ No technical expertise or GIS training required — zero cognitive barrier for local farming communities.
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between text-xs text-slate-400 border-t border-slate-700/60 pt-3">
+        <span>The Solution Architecture</span>
+        <span class="font-mono text-emerald-400 font-medium">Slide 3 of 7</span>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 4 — NASA DATA AT THE CORE            -->
+    <!-- ========================================== -->
+    <section class="slide" id="slide-4" data-duration="40">
+      <div class="flex items-center justify-between border-b border-slate-700/60 pb-3">
+        <span class="badge badge-nasa">NASA Earth Observations</span>
+        <span class="text-xs text-slate-400 font-mono">Multi-Sensor Science Stack</span>
+      </div>
+
+      <div class="my-auto space-y-5">
+        <div>
+          <h2 class="text-4xl font-extrabold text-white tracking-tight">
+            NASA satellites help us see what the field cannot always show.
+          </h2>
+          <p class="text-lg font-medium text-sky-400 mt-1">
+            AgroShift combines four NASA Earth-observation constellations into one transparent checkup.
+          </p>
+        </div>
+
+        <!-- NASA Constellation Table -->
+        <table class="slide-table">
+          <thead>
+            <tr>
+              <th style="width: 25%;">NASA Source</th>
+              <th style="width: 35%;">What It Helps Us Understand</th>
+              <th style="width: 40%;">How AgroShift Uses It</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div class="font-bold text-sky-400">NASA POWER</div>
+                <div class="text-[11px] text-slate-400">Daily Point Agroclimatology API</div>
+              </td>
+              <td>Temperature (T2M), precipitation, solar radiation, humidity, and 10-year climatological baseline.</td>
+              <td>Identifies heat-stress windows, frost probabilities, and baseline weather anomalies. <strong class="text-sky-300">Primary climate engine.</strong></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="font-bold text-emerald-400">NASA SMAP / Crop-CASMA</div>
+                <div class="text-[11px] text-slate-400">L4 Global Surface & Root-Zone Soil Moisture</div>
+              </td>
+              <td>0–5 cm surface wetness and 0–100 cm root-zone available water profile.</td>
+              <td>Flags root-zone dry spells, water-logging risks, and verifies sub-surface moisture trends before sowing.</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="font-bold text-blue-400">NASA GPM IMERG</div>
+                <div class="text-[11px] text-slate-400">Integrated Multi-satellitE Retrievals for GPM</div>
+              </td>
+              <td>High-resolution satellite precipitation estimates and cumulative rainfall deficit.</td>
+              <td>Calculates 30-day precipitation deficit index and consecutive dry-spell runs across irrigation zones.</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="font-bold text-amber-400">NASA MODIS / VIIRS NDVI</div>
+                <div class="text-[11px] text-slate-400">Normalized Difference Vegetation Index</div>
+              </td>
+              <td>Vegetation canopy greenness, photosynthetic activity, and biomass vigor.</td>
+              <td>Detects low-greenness canopy stress and verifies bare-field exposure periods across crop transitions.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Scientific Data Flow Pipeline -->
+        <div class="glass-card py-3 px-4 flex items-center justify-between text-xs">
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-blue-500"></span>
+            <span class="font-bold text-white">NASA Satellites</span>
+            <span class="text-slate-400">(POWER, SMAP, GPM, MODIS)</span>
+          </div>
+          <span class="text-sky-400 font-mono font-bold">➔</span>
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+            <span class="font-bold text-white">AgroShift Science Engine</span>
+            <span class="text-slate-400">(Normalization & Null Integrity)</span>
+          </div>
+          <span class="text-sky-400 font-mono font-bold">➔</span>
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-amber-500"></span>
+            <span class="font-bold text-white">Farmer Decision Plans</span>
+            <span class="text-slate-400">(3 Transparent Rotations)</span>
+          </div>
+        </div>
+
+        <div class="p-2.5 rounded-lg bg-blue-950/40 border border-blue-500/30 text-center text-xs font-semibold text-sky-300">
+          🛰️ <strong>Core Scientific Rule:</strong> NASA values `<= -900` are strictly mapped to `null` (not zeros) — preventing false zeroes from distorting farm decisions.
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between text-xs text-slate-400 border-t border-slate-700/60 pt-3">
+        <span>NASA Earth-Observation Core</span>
+        <span class="font-mono text-emerald-400 font-medium">Slide 4 of 7</span>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 5 — LIVE DEMO & ROTATION COMPARISON   -->
+    <!-- ========================================== -->
+    <section class="slide" id="slide-5" data-duration="55">
+      <div class="flex items-center justify-between border-b border-slate-700/60 pb-3">
+        <div class="flex items-center gap-2">
+          <span class="badge badge-green">Judge Demo</span>
+          <span class="badge badge-nasa">Peshawar Valley Demo Coordinates: 34.0151, 71.5249</span>
+        </div>
+        <span class="px-2 py-0.5 rounded bg-emerald-900/60 border border-emerald-500/50 text-[10px] font-mono font-bold text-emerald-300">STATUS: PRODUCTION READY</span>
+      </div>
+
+      <div class="my-auto space-y-5">
+        <div>
+          <h2 class="text-3xl font-extrabold text-white tracking-tight">
+            From a farm pin to a practical, comparable rotation plan.
+          </h2>
+          <p class="text-sm font-medium text-emerald-400 mt-0.5">
+            AgroShift provides deterministic scoring and multi-satellite evidence for three clear pathways.
+          </p>
+        </div>
+
+        <!-- 3-Strategy Comparison Table -->
+        <table class="slide-table">
+          <thead>
+            <tr>
+              <th style="width: 22%;">Strategy</th>
+              <th style="width: 28%;">Seasonal Sequence</th>
+              <th style="width: 32%;">Why NASA Data Suggests It</th>
+              <th style="width: 18%;">Impact Metric</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div class="font-bold text-slate-200">1. Current Baseline</div>
+                <div class="text-[10px] text-slate-400 uppercase">Monoculture Control</div>
+              </td>
+              <td>
+                <span class="font-mono text-xs text-amber-300">Rabi:</span> Wheat<br>
+                <span class="font-mono text-xs text-amber-300">Kharif:</span> Maize / Rice<br>
+                <span class="text-[11px] text-slate-400">Seasonal Summer Fallow</span>
+              </td>
+              <td>Benchmark reference. NASA POWER confirms prolonged heat exposure and SMAP indicates severe soil desiccation during June–July fallow window.</td>
+              <td>
+                <span class="px-2 py-0.5 rounded bg-red-950 text-red-300 font-mono text-xs font-bold">Water Demand: High</span><br>
+                <span class="text-[11px] text-slate-400">Score: 58/100</span>
+              </td>
+            </tr>
+            <tr style="background: rgba(34, 197, 94, 0.08);">
+              <td>
+                <div class="font-bold text-emerald-400">2. Water Saver & Pulse Fix</div>
+                <div class="text-[10px] text-emerald-300 uppercase">Drought & Deficit Shield</div>
+              </td>
+              <td>
+                <span class="font-mono text-xs text-emerald-300">Rabi:</span> Wheat<br>
+                <span class="font-mono text-xs text-emerald-300">Spring:</span> Mung Bean (Pulse)<br>
+                <span class="font-mono text-xs text-emerald-300">Kharif:</span> Chickpea / Millet
+              </td>
+              <td>Recommended when GPM IMERG flags rain deficits & SMAP shows depleted root moisture. Short-cycle pulse fixes 35–45 kg N/ha into soil.</td>
+              <td>
+                <span class="px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 font-mono text-xs font-bold">-40% Irrigation Demand</span><br>
+                <span class="text-[11px] text-emerald-400 font-bold">Score: 88/100</span>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="font-bold text-sky-400">3. Soil Shield & Forage</div>
+                <div class="text-[10px] text-sky-300 uppercase">Thermal Desiccation Cover</div>
+              </td>
+              <td>
+                <span class="font-mono text-xs text-sky-300">Rabi:</span> Wheat<br>
+                <span class="font-mono text-xs text-sky-300">Summer:</span> Berseem Clover Cover<br>
+                <span class="font-mono text-xs text-sky-300">Kharif:</span> Hybrid Maize
+              </td>
+              <td>Recommended when MODIS NDVI shows bare ground and POWER shows high solar irradiance. Maintains living canopy to prevent soil erosion.</td>
+              <td>
+                <span class="px-2 py-0.5 rounded bg-sky-950 text-sky-300 font-mono text-xs font-bold">+28% Soil Health</span><br>
+                <span class="text-[11px] text-sky-400 font-bold">Score: 82/100</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Provenance Footer -->
+        <div class="p-3 rounded-xl bg-slate-900 border border-slate-700/80 flex items-center justify-between text-xs">
+          <div class="flex items-center gap-2 text-slate-300">
+            <span class="text-emerald-400 font-bold">✓ Complete Traceability:</span>
+            <span>Every strategy displays its seasonal calendar, water rating, soil nitrogen score, satellite evidence citation, risks, and assumptions.</span>
+          </div>
+          <span class="badge badge-green font-mono text-[10px]">PDF & CSV EXPORT READY</span>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between text-xs text-slate-400 border-t border-slate-700/60 pt-3">
+        <span>Judge Demo Workflow</span>
+        <span class="font-mono text-emerald-400 font-medium">Slide 5 of 7</span>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 6 — IMPACT & RESPONSIBLE AI          -->
+    <!-- ========================================== -->
+    <section class="slide" id="slide-6" data-duration="30">
+      <div class="flex items-center justify-between border-b border-slate-700/60 pb-3">
+        <span class="badge badge-green">Impact & Ethics</span>
+        <span class="text-xs text-slate-400 font-mono">Scientific Rigor & Responsible AI</span>
+      </div>
+
+      <div class="my-auto space-y-6">
+        <div>
+          <h2 class="text-4xl font-extrabold text-white tracking-tight">
+            Better decisions begin with clearer information.
+          </h2>
+          <p class="text-lg font-medium text-sky-400 mt-1">
+            AgroShift supports farmers without pretending to guarantee outcomes.
+          </p>
+        </div>
+
+        <!-- 3-Column Pillar Grid -->
+        <div class="grid grid-cols-3 gap-6">
+          <div class="glass-card space-y-3 border-emerald-500/30">
+            <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 flex items-center justify-center text-xl">🌱</div>
+            <h3 class="text-base font-bold text-white">Farmer Impact</h3>
+            <ul class="text-xs text-slate-300 space-y-2">
+              <li>• Simple, transparent starting point for crop planning</li>
+              <li>• Side-by-side trade-off analysis of water vs. soil health</li>
+              <li>• Voice-assisted Urdu/English accessible inputs</li>
+              <li>• Portable PDF/CSV field plans for offline use</li>
+            </ul>
+          </div>
+
+          <div class="glass-card space-y-3 border-blue-500/30">
+            <div class="w-10 h-10 rounded-xl bg-blue-500/20 text-blue-400 border border-blue-500/40 flex items-center justify-center text-xl">👥</div>
+            <h3 class="text-base font-bold text-white">Community Impact</h3>
+            <ul class="text-xs text-slate-300 space-y-2">
+              <li>• Calibrated for Peshawar, Charsadda, and Mardan districts</li>
+              <li>• Supports regional water-table preservation</li>
+              <li>• Empowers agricultural extension advisors in the field</li>
+              <li>• Encourages legume integration to cut synthetic fertilizer dependency</li>
+            </ul>
+          </div>
+
+          <div class="glass-card space-y-3 border-amber-500/30 bg-amber-950/10">
+            <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 border border-amber-500/40 flex items-center justify-center text-xl">🛡️</div>
+            <h3 class="text-base font-bold text-amber-300">Scientific Honesty</h3>
+            <ul class="text-xs text-slate-300 space-y-2">
+              <li>• Satellites observe broad regional pixels, not farm micro-truth</li>
+              <li>• Missing NASA data remains missing (no synthetic interpolation)</li>
+              <li>• Zero claims of guaranteed yields, profits, or water delivery</li>
+              <li>• Decadal trends require at least 5 continuous years</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Mandatory Local-Check Banner -->
+        <div class="p-4 rounded-xl bg-amber-950/40 border border-amber-500/60 flex items-center gap-3.5">
+          <span class="text-2xl flex-shrink-0">⚠️</span>
+          <div>
+            <div class="text-xs font-bold text-amber-300 uppercase tracking-wider">Mandatory Local Check Disclaimer</div>
+            <p class="text-xs text-slate-200 mt-0.5">
+              <strong>Local Check:</strong> Verify canal water schedules, seed prices, soil salinity, pest pressure, and field-specific conditions before planting.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between text-xs text-slate-400 border-t border-slate-700/60 pt-3">
+        <span>Responsible AI & Community Trust</span>
+        <span class="font-mono text-emerald-400 font-medium">Slide 6 of 7</span>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 7 — TEAM, TECH & NEXT STEPS          -->
+    <!-- ========================================== -->
+    <section class="slide" id="slide-7" data-duration="15">
+      <div class="flex items-center justify-between border-b border-slate-700/60 pb-3">
+        <span class="badge badge-nasa">Team InCir</span>
+        <span class="text-xs text-slate-400 font-mono">Abasyn University Peshawar</span>
+      </div>
+
+      <div class="my-auto space-y-6">
+        <div>
+          <h2 class="text-3xl font-extrabold text-white tracking-tight">
+            Team InCir — Building practical space-data solutions for local farms.
+          </h2>
+          <p class="text-base font-medium text-emerald-400 mt-0.5">
+            NASA data at the core. Local farmers at the center. Transparent decisions throughout.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-12 gap-6 items-start">
+          <!-- Left: Team & Tech Stack -->
+          <div class="col-span-7 space-y-4">
+            <div class="glass-card space-y-3">
+              <div class="flex items-center justify-between border-b border-slate-700 pb-2">
+                <span class="text-xs font-bold text-slate-300 uppercase tracking-wider">Team InCir · Abasyn University</span>
+                <span class="badge badge-green text-[10px]">5 Members · 6th Semester</span>
+              </div>
+
+              <!-- Lead Member Featured -->
+              <div class="p-2.5 rounded-lg bg-emerald-950/40 border border-emerald-500/40 flex items-center justify-between">
+                <div>
+                  <div class="font-bold text-emerald-400 flex items-center gap-1.5 text-xs">
+                    <span>Muhammad Talha</span>
+                    <span class="text-[9px] uppercase px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-mono">Team Lead</span>
+                  </div>
+                  <div class="text-slate-300 text-[11px]">BS Software Engineering (6th Semester)</div>
+                </div>
+                <div class="text-[10px] text-emerald-300 font-mono hidden sm:block">Full-Stack Geospatial AI</div>
+              </div>
+
+              <!-- 4 Team Members Grid -->
+              <div class="grid grid-cols-2 gap-2.5 text-xs">
+                <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 transition-colors">
+                  <div class="font-bold text-white text-xs">Sana Jalal</div>
+                  <div class="text-emerald-400/90 text-[10.5px]">BS Software Engineering</div>
+                  <div class="text-slate-400 text-[10px] font-mono">6th Semester</div>
+                </div>
+                <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 transition-colors">
+                  <div class="font-bold text-white text-xs">Hira Dawood</div>
+                  <div class="text-emerald-400/90 text-[10.5px]">BS Software Engineering</div>
+                  <div class="text-slate-400 text-[10px] font-mono">6th Semester</div>
+                </div>
+                <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 transition-colors">
+                  <div class="font-bold text-white text-xs">Sudais Ahmad</div>
+                  <div class="text-sky-400/90 text-[10.5px]">BS AI</div>
+                  <div class="text-slate-400 text-[10px] font-mono">6th Semester</div>
+                </div>
+                <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 transition-colors">
+                  <div class="font-bold text-white text-xs">Aqsa Faisal</div>
+                  <div class="text-sky-400/90 text-[10.5px]">BS AI</div>
+                  <div class="text-slate-400 text-[10px] font-mono">6th Semester</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="glass-card py-3 px-4">
+              <div class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Technology Stack</div>
+              <div class="flex items-center gap-2 flex-wrap text-xs font-mono">
+                <span class="px-2.5 py-1 rounded bg-slate-800 border border-slate-700 text-slate-300">FastAPI</span>
+                <span class="px-2.5 py-1 rounded bg-slate-800 border border-slate-700 text-slate-300">Next.js 14 App Router</span>
+                <span class="px-2.5 py-1 rounded bg-slate-800 border border-slate-700 text-slate-300">TypeScript</span>
+                <span class="px-2.5 py-1 rounded bg-slate-800 border border-slate-700 text-slate-300">Tailwind CSS</span>
+                <span class="px-2.5 py-1 rounded bg-slate-800 border border-slate-700 text-slate-300">Leaflet & Turf.js</span>
+                <span class="px-2.5 py-1 rounded bg-slate-800 border border-slate-700 text-slate-300">SQLite & SQLAlchemy</span>
+                <span class="px-2.5 py-1 rounded bg-slate-800 border border-slate-700 text-slate-300">Playwright & Pytest</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Next Steps & Closing Call to Action -->
+          <div class="col-span-5 space-y-4">
+            <div class="glass-card space-y-2.5 border-sky-500/30">
+              <div class="text-xs font-bold text-sky-400 uppercase tracking-wider">Next Operational Steps</div>
+              <ul class="text-xs text-slate-300 space-y-1.5">
+                <li>• Partner with KP Agricultural Extension Services</li>
+                <li>• Integrate hyper-local soil laboratory datasets</li>
+                <li>• Expand offline PWA mode for low-connectivity valleys</li>
+                <li>• Add Pashto (پښتو) voice support alongside Urdu</li>
+              </ul>
+            </div>
+
+            <div class="p-4 rounded-xl bg-gradient-to-r from-emerald-950 to-blue-950 border border-emerald-500/40 text-center space-y-2">
+              <div class="text-sm font-extrabold text-white">AgroShift: NASA data, local decisions.</div>
+              <p class="text-[11px] text-slate-300 leading-normal">
+                Open-source, judge-ready decision-support system built for NASA Space Apps Challenge 2026.
+              </p>
+              <div class="pt-2 flex items-center justify-center gap-3 text-xs">
+                <span class="text-emerald-400 font-semibold font-mono">http://localhost:3000</span>
+                <span class="text-slate-600">|</span>
+                <span class="text-sky-400 font-semibold font-mono">http://localhost:8000/docs</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between text-xs text-slate-400 border-t border-slate-700/60 pt-3">
+        <span>Team InCir • Abasyn University Peshawar</span>
+        <span class="font-mono text-emerald-400 font-medium">Slide 7 of 7</span>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Speaker Notes Drawer (Toggled by Button or 'N') -->
+  <div id="speaker-notes-drawer">
+    <div class="flex items-center justify-between border-b border-slate-700 pb-2 mb-2.5">
+      <div class="flex items-center gap-2">
+        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+        <span class="text-xs font-bold text-white uppercase tracking-wider">Speaker Notes (<span id="notes-slide-num">Slide 1</span>)</span>
+      </div>
+      <button onclick="toggleSpeakerNotes()" class="text-xs text-slate-400 hover:text-white font-mono">✕ Close [N]</button>
+    </div>
+    <p id="speaker-note-text" class="text-sm text-slate-200 leading-relaxed font-mono">
+      AgroShift helps farmers and local advisors turn NASA satellite observations into simple, transparent crop-rotation choices. It is designed for Peshawar Valley, where changing heat, rainfall, and water availability affect farming decisions.
+    </p>
+  </div>
+
+  <!-- Bottom Navigation & Timer Bar -->
+  <footer id="deck-controls">
+    <div class="flex items-center gap-3">
+      <button class="control-btn" onclick="prevSlide()" title="Previous Slide [← or PageUp]">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></svg>
+        <span>Prev</span>
+      </button>
+
+      <button class="control-btn" onclick="nextSlide()" title="Next Slide [→ or Space or PageDown]">
+        <span>Next</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+      </button>
+
+      <div class="flex items-center gap-1.5 ml-4" id="progress-pills">
+        <!-- Javascript injects 7 pills -->
+      </div>
+    </div>
+
+    <!-- Presentation Timer & Speaker Notes Button -->
+    <div class="flex items-center gap-4">
+      <div class="flex items-center gap-2 bg-slate-900/90 border border-slate-700 px-3 py-1.5 rounded-xl font-mono text-xs">
+        <span id="timer-indicator" class="w-2 h-2 rounded-full bg-emerald-400"></span>
+        <span class="text-slate-400">Elapsed:</span>
+        <span id="presentation-timer" class="text-white font-bold text-sm">00:00</span>
+        <span class="text-slate-500 text-[11px]">(3:10 target)</span>
+        <button onclick="resetTimer()" title="Reset Timer" class="text-slate-400 hover:text-white ml-1">↺</button>
+      </div>
+
+      <button id="notes-btn" class="control-btn" onclick="toggleSpeakerNotes()" title="Toggle Speaker Notes [N]">
+        <span>Notes [N]</span>
+      </button>
+
+      <button class="control-btn" onclick="toggleFullscreen()" title="Fullscreen [F]">
+        <span>Fullscreen [F]</span>
+      </button>
+    </div>
+  </footer>
+
+  <script>
+    const speakerNotes = [
+      "AgroShift helps farmers and local advisors turn NASA satellite observations into simple, transparent crop-rotation choices. It is designed for Peshawar Valley, where changing heat, rainfall, and water availability affect farming decisions.",
+      "Farmers make high-stakes decisions with limited limited local information. AgroShift turns broad-area NASA observations into a simple starting point for planning, while reminding users that local field conditions still matter.",
+      "Our solution is designed for accessibility. A farmer can use a map, simple choices, and optional voice input. The app then translates NASA observations into understandable rotation options.",
+      "NASA POWER provides daily climate variables. SMAP and Crop-CASMA provide soil-moisture context. GPM IMERG provides precipitation estimates. NDVI helps us understand vegetation greenness. AgroShift combines these signals while clearly showing data coverage and limitations.",
+      "In the demo, we select a farm near Peshawar, choose wheat, and select water conservation. AgroShift checks NASA-derived conditions and compares a baseline rotation with a pulse-inclusive rotation and a soil-cover rotation. The farmer sees the evidence, trade-offs, and a downloadable plan.",
+      "AgroShift does not promise guaranteed yields or profits. It gives farmers a transparent starting point, shows uncertainty, and encourages local verification before planting.",
+      "AgroShift was built by Team InCir from Abasyn University Peshawar, led by Muhammad Talha with Sana Jalal, Hira Dawood, Sudais Ahmad, and Aqsa Faisal — 6th-semester Software Engineering and AI undergraduates. We used NASA POWER as our primary climate-data source, with SMAP/Crop-CASMA, GPM IMERG, and NDVI products supporting the broader Earth-observation checkup. Our goal is to make NASA data useful, understandable, and locally relevant for farmers."
+    ];
+
+    let currentSlide = 0;
+    const totalSlides = 7;
+    let timerSeconds = 0;
+    let timerInterval = null;
+
+    function renderPills() {
+      const container = document.getElementById('progress-pills');
+      container.innerHTML = '';
+      for (let i = 0; i < totalSlides; i++) {
+        const pill = document.createElement('div');
+        pill.className = `progress-pill ${i === currentSlide ? 'active' : ''}`;
+        pill.onclick = () => goToSlide(i);
+        pill.title = `Jump to Slide ${i + 1}`;
+        container.appendChild(pill);
+      }
+    }
+
+    function showSlide(index) {
+      if (index < 0 || index >= totalSlides) return;
+      currentSlide = index;
+
+      document.querySelectorAll('.slide').forEach((slide, i) => {
+        if (i === currentSlide) {
+          slide.classList.add('active');
+        } else {
+          slide.classList.remove('active');
+        }
+      });
+
+      renderPills();
+      updateSpeakerNotes();
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides - 1) {
+        showSlide(currentSlide + 1);
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        showSlide(currentSlide - 1);
+      }
+    }
+
+    function goToSlide(index) {
+      showSlide(index);
+    }
+
+    function updateSpeakerNotes() {
+      const notesEl = document.getElementById('speaker-note-text');
+      const numEl = document.getElementById('notes-slide-num');
+      if (notesEl) {
+        notesEl.textContent = speakerNotes[currentSlide];
+      }
+      if (numEl) {
+        numEl.textContent = `Slide ${currentSlide + 1}`;
+      }
+    }
+
+    function toggleSpeakerNotes() {
+      const drawer = document.getElementById('speaker-notes-drawer');
+      const btn = document.getElementById('notes-btn');
+      drawer.classList.toggle('open');
+      btn.classList.toggle('active');
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen().catch(() => {});
+        }
+      }
+    }
+
+    // Timer management
+    function startTimer() {
+      if (timerInterval) return;
+      timerInterval = setInterval(() => {
+        timerSeconds++;
+        const mins = Math.floor(timerSeconds / 60).toString().padStart(2, '0');
+        const secs = (timerSeconds % 60).toString().padStart(2, '0');
+        const timerEl = document.getElementById('presentation-timer');
+        const indicator = document.getElementById('timer-indicator');
+        
+        if (timerEl) {
+          timerEl.textContent = `${mins}:${secs}`;
+        }
+
+        // Color thresholds (3-min target: green < 150s, amber 150s-190s, red > 190s)
+        if (indicator) {
+          if (timerSeconds < 150) {
+            indicator.style.backgroundColor = '#22C55E';
+          } else if (timerSeconds < 190) {
+            indicator.style.backgroundColor = '#F59E0B';
+          } else {
+            indicator.style.backgroundColor = '#EF4444';
+          }
+        }
+      }, 1000);
+    }
+
+    function resetTimer() {
+      timerSeconds = 0;
+      const timerEl = document.getElementById('presentation-timer');
+      const indicator = document.getElementById('timer-indicator');
+      if (timerEl) timerEl.textContent = '00:00';
+      if (indicator) indicator.style.backgroundColor = '#22C55E';
+    }
+
+    // Keyboard navigation
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        e.preventDefault();
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        e.preventDefault();
+        prevSlide();
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        showSlide(0);
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        showSlide(totalSlides - 1);
+      } else if (e.key === 'n' || e.key === 'N') {
+        e.preventDefault();
+        toggleSpeakerNotes();
+      } else if (e.key === 'f' || e.key === 'F') {
+        e.preventDefault();
+        toggleFullscreen();
+      }
+    });
+
+    // Touch swipe support
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    window.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, false);
+
+    window.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      if (touchEndX < touchStartX - 50) {
+        nextSlide();
+      } else if (touchEndX > touchStartX + 50) {
+        prevSlide();
+      }
+    }, false);
+
+    // Initial setup
+    renderPills();
+    updateSpeakerNotes();
+    startTimer();
+  </script>
+</body>
+</html>

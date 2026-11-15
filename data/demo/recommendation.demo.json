@@ -1,0 +1,172 @@
+{
+  "recommendation_id": "demo-rec-001",
+  "farm_id": "demo-peshawar-001",
+  "generated_at": "2026-10-01T12:05:00Z",
+  "priority": "balanced",
+  "is_demo_data": true,
+  "climate_context": {
+    "source": "NASA POWER Daily Point API (AG Community)",
+    "period": "2026-05-01 to 2026-07-31",
+    "mean_t2m": 33.15,
+    "max_t2m": 41.5,
+    "precipitation_sum": 37.8,
+    "indicators": {
+      "heat_stress_risk": "high_june_july",
+      "monsoon_onset": "early_july",
+      "evaporative_demand": "elevated"
+    }
+  },
+  "limitations": [
+    "Decision-support model only; does not provide guaranteed yield, profit, or water delivery certainty.",
+    "Recommendations rely on NASA POWER gridded satellite reanalysis (~0.5° × 0.625° resolution) which does not capture hyper-local field microtopography or soil salinity patches.",
+    "Actual performance depends on physical canal rotation schedules (warabandi) and tube-well electrical grid reliability in Peshawar Valley."
+  ],
+  "general_assumptions": [
+    "Farm retains functional tube-well irrigation with medium seasonal reliability.",
+    "Soil texture is loamy with moderate infiltration and organic matter ~0.6-0.8%.",
+    "Agronomic practices follow Khyber Pakhtunkhwa Agriculture Extension standard seedbed preparation."
+  ],
+  "scenarios": [
+    {
+      "scenario_id": "baseline",
+      "title": "Conventional Cereal Monoculture (Wheat – Maize)",
+      "description": "Standard two-season cereal rotation prevalent across Peshawar and Charsadda districts, balancing food security with familiar local marketing channels.",
+      "score": 68.5,
+      "score_breakdown": {
+        "water_fit": 65.0,
+        "climate_suitability": 74.0,
+        "soil_health_diversity": 62.0,
+        "weights": {
+          "water_fit": 0.35,
+          "climate_suitability": 0.35,
+          "soil_health_diversity": 0.30
+        }
+      },
+      "crop_sequence": ["wheat", "maize"],
+      "seasonal_calendar": [
+        {
+          "season": "rabi",
+          "crop": "Wheat (Gandum)",
+          "window": "Mid-November to Mid-April",
+          "water_notes": "Requires 4-5 irrigations; crown root initiation and grain fill are critical moisture stages."
+        },
+        {
+          "season": "kharif",
+          "crop": "Maize (Makai)",
+          "window": "June to September",
+          "water_notes": "High water requirement coinciding with peak summer temperatures (36-41°C) and monsoon."
+        }
+      ],
+      "rationale": [
+        "Aligns with Peshawar Valley's most established grain supply chains and local household consumption.",
+        "Both crops have documented heat tolerance thresholds matching NASA POWER historical temperature regimes."
+      ],
+      "benefits": [
+        "Reliable local cash and fodder markets with negligible adoption barrier for farm labor.",
+        "Allows utilization of standard mechanized threshing and seed drill equipment."
+      ],
+      "risks": [
+        "Heavy synthetic nitrogen fertilizer dependence depletes soil biological activity over time.",
+        "High water demand during June-July peak temperatures stresses tube-well groundwater pumping."
+      ],
+      "assumptions": [
+        "Assumes reliable electricity or diesel availability for tube-well during peak June heat waves."
+      ],
+      "evidence_status": "documented"
+    },
+    {
+      "scenario_id": "pulse_inclusive",
+      "title": "Nitrogen-Fixing Pulse Diversification (Wheat – Mung Bean)",
+      "description": "Introduces short-duration mung bean in early kharif/zaid window to break continuous cereal deplete cycles, fix atmospheric nitrogen, and reduce peak summer water demand.",
+      "score": 86.0,
+      "score_breakdown": {
+        "water_fit": 88.0,
+        "climate_suitability": 84.0,
+        "soil_health_diversity": 87.0,
+        "weights": {
+          "water_fit": 0.35,
+          "climate_suitability": 0.35,
+          "soil_health_diversity": 0.30
+        }
+      },
+      "crop_sequence": ["wheat", "mung_bean"],
+      "seasonal_calendar": [
+        {
+          "season": "rabi",
+          "crop": "Wheat (Gandum)",
+          "window": "Mid-November to Mid-April",
+          "water_notes": "Benefits from residual soil nitrogen left by preceding pulse cycle."
+        },
+        {
+          "season": "zaid / kharif",
+          "crop": "Mung Bean (Mung)",
+          "window": "May to July (65-75 days)",
+          "water_notes": "Low water demand; requires only 2-3 light irrigations compared to heavy maize flooding."
+        }
+      ],
+      "rationale": [
+        "Short duration (70 days) fits neatly between wheat harvest and late summer, lowering irrigation volume during peak June evaporative demand.",
+        "Rhizobium biological nitrogen fixation enriches topsoil organic nitrogen, dampening synthetic urea requirements."
+      ],
+      "benefits": [
+        "Substantial water conservation during critical June heat spells identified in NASA POWER climate data.",
+        "Diversifies farm income with high-value edible pulse grain commanding premium market prices in Peshawar."
+      ],
+      "risks": [
+        "Pods are susceptible to shattering and flower drop if unseasonal intense monsoon rains hit during early July ripening.",
+        "Requires certified rhizobium inoculant and careful aphid monitoring."
+      ],
+      "assumptions": [
+        "Assumes seedbed drainage is sufficient to prevent standing water during monsoon cloudbursts."
+      ],
+      "evidence_status": "documented"
+    },
+    {
+      "scenario_id": "soil_cover",
+      "title": "Soil Health & Multi-Cut Forage Cover (Berseem Clover – Maize)",
+      "description": "Replaces continuous grain cereals with Berseem clover in rabi to produce high-protein livestock forage, provide continuous ground canopy cover, and aggressively regenerate depleted valley soils.",
+      "score": 82.5,
+      "score_breakdown": {
+        "water_fit": 78.0,
+        "climate_suitability": 82.0,
+        "soil_health_diversity": 91.0,
+        "weights": {
+          "water_fit": 0.35,
+          "climate_suitability": 0.35,
+          "soil_health_diversity": 0.30
+        }
+      },
+      "crop_sequence": ["berseem_clover", "maize"],
+      "seasonal_calendar": [
+        {
+          "season": "rabi",
+          "crop": "Berseem Clover (Shaftal / Berseem)",
+          "window": "October to April (Multi-cut)",
+          "water_notes": "Requires frequent shallow irrigations; high water use efficiency due to continuous vegetative cover."
+        },
+        {
+          "season": "kharif",
+          "crop": "Maize (Makai)",
+          "window": "June to September",
+          "water_notes": "Grows vigorously on clover-enriched nitrogen residual, improving water retention in root zone."
+        }
+      ],
+      "rationale": [
+        "Dense legume canopy suppresses winter weed proliferation and dramatically enhances soil organic matter in loamy soils.",
+        "Provides 4 to 6 cuttings of succulent green fodder for Peshawar Valley peri-urban dairy herds."
+      ],
+      "benefits": [
+        "Exceptional soil structure, microbial biomass, and nitrogen enrichment.",
+        "Steady weekly cash flow from green forage sales in Peshawar livestock markets."
+      ],
+      "risks": [
+        "Requires access to livestock or established local green forage market routes.",
+        "Frequent cutting requires sustained farm labor availability from December through April."
+      ],
+      "assumptions": [
+        "Assumes farm labor or local peri-urban fodder buyer handles regular bi-weekly forage harvesting."
+      ],
+      "evidence_status": "documented"
+    }
+  ]
+}

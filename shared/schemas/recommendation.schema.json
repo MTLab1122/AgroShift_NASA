@@ -1,0 +1,140 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "RecommendationSchema",
+  "definitions": {
+    "ScoreBreakdown": {
+      "type": "object",
+      "required": ["water_fit", "climate_suitability", "soil_health_diversity", "weights"],
+      "properties": {
+        "water_fit": { "type": ["number", "null"], "minimum": 0, "maximum": 100 },
+        "climate_suitability": { "type": ["number", "null"], "minimum": 0, "maximum": 100 },
+        "soil_health_diversity": { "type": ["number", "null"], "minimum": 0, "maximum": 100 },
+        "weights": {
+          "type": "object",
+          "required": ["water_fit", "climate_suitability", "soil_health_diversity"],
+          "properties": {
+            "water_fit": { "type": "number", "minimum": 0, "maximum": 1 },
+            "climate_suitability": { "type": "number", "minimum": 0, "maximum": 1 },
+            "soil_health_diversity": { "type": "number", "minimum": 0, "maximum": 1 }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "CalendarEntry": {
+      "type": "object",
+      "required": ["season", "crop", "window", "water_notes"],
+      "properties": {
+        "season": { "type": "string" },
+        "crop": { "type": "string" },
+        "window": { "type": "string" },
+        "water_notes": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "Scenario": {
+      "type": "object",
+      "required": [
+        "scenario_id",
+        "title",
+        "description",
+        "score",
+        "score_breakdown",
+        "crop_sequence",
+        "seasonal_calendar",
+        "rationale",
+        "benefits",
+        "risks",
+        "assumptions",
+        "evidence_status"
+      ],
+      "properties": {
+        "scenario_id": {
+          "type": "string",
+          "enum": ["baseline", "pulse_inclusive", "soil_cover", "water_saver_pulse_fix", "soil_shield_forage"]
+        },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "score": { "type": ["number", "null"], "minimum": 0, "maximum": 100 },
+        "score_breakdown": { "$ref": "#/definitions/ScoreBreakdown" },
+        "crop_sequence": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1
+        },
+        "seasonal_calendar": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/CalendarEntry" },
+          "minItems": 1
+        },
+        "rationale": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1
+        },
+        "benefits": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1
+        },
+        "risks": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1
+        },
+        "assumptions": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1
+        },
+        "evidence_status": {
+          "type": "string",
+          "enum": ["documented", "tentative"]
+        }
+      },
+      "additionalProperties": false
+    },
+    "RecommendationSet": {
+      "type": "object",
+      "required": [
+        "recommendation_id",
+        "farm_id",
+        "generated_at",
+        "priority",
+        "is_demo_data",
+        "scenarios",
+        "limitations",
+        "general_assumptions"
+      ],
+      "properties": {
+        "recommendation_id": { "type": "string" },
+        "farm_id": { "type": "string" },
+        "generated_at": { "type": "string", "format": "date-time" },
+        "priority": {
+          "type": "string",
+          "enum": ["balanced", "water_efficiency", "crop_diversity", "soil_cover"]
+        },
+        "is_demo_data": { "type": "boolean" },
+        "scenarios": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/Scenario" },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "climate_context": {
+          "type": ["object", "null"]
+        },
+        "limitations": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "general_assumptions": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}
